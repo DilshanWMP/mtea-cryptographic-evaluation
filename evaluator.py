@@ -1,6 +1,6 @@
 """
 evaluator.py
-Cryptographic evaluation module for TEA, MTEA, and XTEA.
+Cryptographic evaluation module for TEA and MTEA.
 Contains code to verify equivalent keys, analyze avalanche effect,
 test key sensitivity, and run performance benchmarks.
 """
@@ -175,16 +175,15 @@ def benchmark_cipher(encrypt_fn, num_blocks: int = 20000, cycles: int = 32) -> f
 
 
 if __name__ == "__main__":
-    from tea_core import tea_encrypt, mtea_encrypt, xtea_encrypt
+    from tea_core import tea_encrypt, mtea_encrypt
 
     ciphers = {
         "TEA": tea_encrypt,
         "MTEA (Proposed)": mtea_encrypt,
-        "XTEA": xtea_encrypt,
     }
 
     print("=" * 60)
-    print("CRYPTOGRAPHIC EVALUATION: TEA vs MTEA vs XTEA")
+    print("CRYPTOGRAPHIC EVALUATION: TEA vs MTEA")
     print("=" * 60)
 
     # 1. Equivalent Key Finder

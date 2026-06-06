@@ -1,6 +1,6 @@
 """
 main.py
-Interactive CLI for demonstrating and evaluating TEA, MTEA, and XTEA.
+Interactive CLI for demonstrating and evaluating TEA and MTEA.
 Takes a plaintext from the user, generates a random 128-bit key, and runs
 cryptographic checks showing results directly on the command line.
 """
@@ -15,7 +15,7 @@ from typing import Tuple, List, Callable
 # Import core cryptographic algorithms
 from tea_core import (
     encrypt_text, decrypt_text,
-    tea_encrypt, mtea_encrypt, xtea_encrypt,
+    tea_encrypt, mtea_encrypt,
     text_to_blocks, blocks_to_hex, key_from_string
 )
 
@@ -83,8 +83,7 @@ def run_equivalent_key_check(plaintext: str, key_str: str):
     blocks = text_to_blocks(plaintext)
     ciphers = {
         "TEA": tea_encrypt,
-        "MTEA (Proposed)": mtea_encrypt,
-        "XTEA": xtea_encrypt
+        "MTEA (Proposed)": mtea_encrypt
     }
 
     for name, encrypt_fn in ciphers.items():
@@ -115,8 +114,7 @@ def run_avalanche_check(plaintext: str, key_str: str):
     blocks = text_to_blocks(plaintext)
     ciphers = {
         "TEA": tea_encrypt,
-        "MTEA (Proposed)": mtea_encrypt,
-        "XTEA": xtea_encrypt
+        "MTEA (Proposed)": mtea_encrypt
     }
 
     cycles_to_check = [1, 8, 16, 24, 32]
@@ -159,8 +157,7 @@ def run_key_sensitivity_check(plaintext: str, key_str: str):
     blocks = text_to_blocks(plaintext)
     ciphers = {
         "TEA": tea_encrypt,
-        "MTEA (Proposed)": mtea_encrypt,
-        "XTEA": xtea_encrypt
+        "MTEA (Proposed)": mtea_encrypt
     }
 
     cycles_to_check = [1, 8, 16, 24, 32]
@@ -239,7 +236,7 @@ def main():
     # 3. Core Encryption/Decryption Proof
     print_header("BASIC CORRECTNESS (Encrypt & Decrypt)")
     
-    ciphers = ['TEA', 'MTEA', 'XTEA']
+    ciphers = ['TEA', 'MTEA']
     for cipher in ciphers:
         ct = encrypt_text(plaintext, generated_key, cipher.lower(), 32)
         recovered = decrypt_text(ct, generated_key, cipher.lower(), 32)
@@ -258,8 +255,7 @@ def main():
     # Run performance
     ciphers_map = {
         "TEA": tea_encrypt,
-        "MTEA (Proposed)": mtea_encrypt,
-        "XTEA": xtea_encrypt
+        "MTEA (Proposed)": mtea_encrypt
     }
     run_performance_check(ciphers_map)
 

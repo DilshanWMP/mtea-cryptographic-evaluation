@@ -1,9 +1,9 @@
 """
 demo.py
-Interactive plaintext encryption/decryption demo for TEA, MTEA, and XTEA.
+Interactive plaintext encryption/decryption demo for TEA and MTEA.
 Allows the user to:
   - Enter a plaintext string and key
-  - Encrypt it with all three ciphers
+  - Encrypt it with both ciphers
   - See the hex ciphertext output
   - Verify decryption recovers the original text
   - Visually compare ciphertext differences when plaintext changes by one character
@@ -12,7 +12,7 @@ Allows the user to:
 from tea_core import (
     encrypt_text, decrypt_text,
     text_to_blocks, key_from_string,
-    tea_encrypt, mtea_encrypt, xtea_encrypt,
+    tea_encrypt, mtea_encrypt,
     blocks_to_hex
 )
 
@@ -39,7 +39,7 @@ def run_encryption_demo(plaintext: str, key_str: str, cycles: int = 32):
     print(f"  Cycles    : {cycles}")
     print()
 
-    ciphers = ['TEA', 'MTEA', 'XTEA']
+    ciphers = ['TEA', 'MTEA']
     ciphertexts = {}
 
     for cipher in ciphers:
@@ -65,7 +65,7 @@ def run_wrong_key_demo(plaintext: str, key_str: str, cycles: int = 32):
     print_section("WRONG KEY DECRYPTION (should produce garbled text)")
     wrong_key = key_str[:-1] + ('X' if key_str[-1] != 'X' else 'Y')
 
-    ciphers = ['TEA', 'MTEA', 'XTEA']
+    ciphers = ['TEA', 'MTEA']
     for cipher in ciphers:
         ct = encrypt_text(plaintext, key_str, cipher.lower(), cycles)
         bad_decryption = decrypt_text(ct, wrong_key, cipher.lower(), cycles)
@@ -90,7 +90,6 @@ def run_avalanche_demo(plaintext: str, key_str: str, cycles: int = 32):
     ciphers = {
         'TEA': tea_encrypt,
         'MTEA': mtea_encrypt,
-        'XTEA': xtea_encrypt,
     }
 
     for cipher_name, encrypt_fn in ciphers.items():
@@ -141,7 +140,6 @@ def run_equivalent_key_demo(plaintext: str, key_str: str, cycles: int = 32):
     ciphers = {
         'TEA': tea_encrypt,
         'MTEA': mtea_encrypt,
-        'XTEA': xtea_encrypt,
     }
 
     for cipher_name, encrypt_fn in ciphers.items():
@@ -162,7 +160,7 @@ def run_equivalent_key_demo(plaintext: str, key_str: str, cycles: int = 32):
 
 def main():
     print("\n" + "#" * 60)
-    print("#   TEA / MTEA / XTEA — Plaintext Encryption Demo        #")
+    print("#         TEA / MTEA — Plaintext Encryption Demo         #")
     print("#" * 60)
 
     # --- Default demo ---
